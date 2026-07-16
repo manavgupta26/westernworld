@@ -174,46 +174,24 @@
     .hero-dots{bottom:14px;}
   }
 
-  /* ===== STATS BAR ===== */
-  .stats-bar{background:var(--navy);padding:38px 0;}
-  .stats-bar .wrap{
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;
-  }
-  .stats-bar .stat{
-    display:flex;align-items:baseline;gap:12px;flex:1;min-width:200px;
-  }
-  .stats-bar .stat + .stat{border-left:1px solid rgba(248,245,238,0.14);padding-left:24px;}
-  .stats-bar .stat b{
-    font-family:'Fraunces',serif;font-size:23px;color:var(--gold-soft);font-weight:600;white-space:nowrap;
-  }
-  .stats-bar .stat span{font-size:12.5px;color:rgba(248,245,238,0.65);letter-spacing:0.03em;}
-  @media (max-width:760px){
-    .stats-bar .stat{min-width:100%;}
-    .stats-bar .stat + .stat{border-left:none;padding-left:0;border-top:1px solid rgba(248,245,238,0.14);padding-top:18px;}
-  }
-
   /* ===== ABOUT ===== */
   .about{padding:100px 0 90px;background:var(--paper);}
   .about .wrap{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start;}
   .about-visual{position:relative;}
-  .khushi-card{
-    background:var(--navy);border-radius:2px;padding:44px 34px;color:var(--paper);
-    position:relative;overflow:hidden;
+
+  .visa-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .visa-box{
+    background:var(--cream);border:1px solid var(--line);border-radius:2px;
+    padding:32px 20px;text-align:center;
+    transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
   }
-  .khushi-card::before{
-    content:"";position:absolute;top:-40px;right:-40px;width:180px;height:180px;
-    border:1px solid rgba(201,151,62,0.35);border-radius:50%;
+  .visa-box:hover{transform:translateY(-4px);box-shadow:0 18px 32px rgba(20,33,61,0.12);background:var(--paper);}
+  .visa-icon{
+    width:58px;height:58px;border-radius:50%;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
   }
-  .khushi-initial{
-    width:78px;height:78px;border-radius:50%;background:var(--gold);
-    color:var(--navy-deep);font-family:'Fraunces',serif;font-size:32px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;margin-bottom:26px;
-  }
-  .khushi-card h3{color:var(--paper);font-size:24px;margin-bottom:4px;}
-  .khushi-card .role{color:var(--gold-soft);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;display:block;}
-  .khushi-card p{color:rgba(248,245,238,0.78);font-size:14.5px;font-weight:300;}
-  .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
-  .tag-row span{border:1px solid rgba(248,245,238,0.25);padding:6px 13px;border-radius:20px;font-size:11.5px;letter-spacing:0.03em;}
+  .visa-icon svg{width:26px;height:26px;stroke:var(--gold-soft);fill:none;}
+  .visa-box h4{font-family:'Fraunces',serif;font-size:15.5px;color:var(--navy);font-weight:600;}
 
   .about-copy h2{font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.15;margin-bottom:22px;}
   .about-copy > p{color:var(--muted);font-size:16px;margin-bottom:18px;max-width:640px;}
@@ -307,6 +285,21 @@
 
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
+
+  .whatsapp-float{
+    position:fixed;right:22px;bottom:22px;z-index:80;
+    width:56px;height:56px;border-radius:50%;
+    background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 12px 28px rgba(0,0,0,0.28);
+    transition:transform .25s ease,box-shadow .25s ease;
+  }
+  .whatsapp-float:hover{transform:scale(1.08);box-shadow:0 16px 34px rgba(0,0,0,0.32);}
+  .whatsapp-float svg{width:28px;height:28px;}
+  @media (max-width:760px){
+    .whatsapp-float{right:16px;bottom:16px;width:52px;height:52px;}
+    .whatsapp-float svg{width:26px;height:26px;}
+  }
 </style>
 </head>
 <body>
@@ -321,7 +314,7 @@
       </div>
     </div>
     <nav class="nav-links">
-      <a href="#about">About Khushi</a>
+      <a href="#about">About</a>
       <a href="#destinations">Destinations</a>
       <a href="#process">Process</a>
       <a href="#callback">Contact</a>
@@ -334,7 +327,7 @@
     </button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about">About Khushi</a>
+    <a href="#about">About</a>
     <a href="#destinations">Destinations</a>
     <a href="#process">Process</a>
     <a href="#callback">Contact</a>
@@ -366,31 +359,38 @@
   </div>
 </section>
 
-<section class="stats-bar">
-  <div class="wrap">
-    <div class="stat"><b>3 Cities</b><span>Chandigarh · Gurugram · Ahmedabad</span></div>
-    <div class="stat"><b>1:1</b><span>Personal Visa Counselling</span></div>
-    <div class="stat"><b>End-to-End</b><span>Application to Departure</span></div>
-  </div>
-</section>
-
 <section class="about reveal" id="about">
   <div class="wrap">
     <div class="about-visual">
-      <div class="khushi-card">
-        <div class="khushi-initial">K</div>
-        <h3>Khushi</h3>
-        <span class="role">Founder &amp; Lead Visa Consultant</span>
-        <p>Guiding students and their families through every stage of the overseas education journey — from choosing the right country to visa filing and pre-departure preparation.</p>
-        <div class="tag-row">
-          <span>Study Visas</span>
-          <span>SOP &amp; Documentation</span>
-          <span>Visa Interview Prep</span>
+      <div class="visa-grid">
+        <div class="visa-box">
+          <div class="visa-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg>
+          </div>
+          <h4>Student Visa</h4>
+        </div>
+        <div class="visa-box">
+          <div class="visa-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1.5"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
+          </div>
+          <h4>Skilled Visa</h4>
+        </div>
+        <div class="visa-box">
+          <div class="visa-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l4-7h10l4 7"/><rect x="3" y="12" width="18" height="8" rx="1.5"/><path d="M9 16h6"/></svg>
+          </div>
+          <h4>Business Visa</h4>
+        </div>
+        <div class="visa-box">
+          <div class="visa-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M6 17c0-2 1.5-3 3-3s3 1 3 3"/><path d="M14 9h4M14 13h4"/></svg>
+          </div>
+          <h4>Visitor Visa</h4>
         </div>
       </div>
     </div>
     <div class="about-copy">
-      <span class="eyebrow">About Khushi</span>
+      <span class="eyebrow">About</span>
       <h2>Personal visa expertise, delivered across three cities.</h2>
       <p>Western World Education Consultants was built around one idea: every student deserves clear, honest guidance on their visa journey — not a sales pitch. Led by Khushi, our counselling is hands-on and personal, covering everything from shortlisting the right country and course to preparing a strong visa file and getting interview-ready.</p>
       <p>With a growing presence in Chandigarh, Gurugram and Ahmedabad, Khushi and the Western World team work closely with students at every step, so nothing about the process feels confusing or out of reach.</p>
@@ -540,7 +540,7 @@
       </div>
       <div class="foot-col">
         <h5>Explore</h5>
-        <a href="#about">About Khushi</a>
+        <a href="#about">About</a>
         <a href="#destinations">Destinations</a>
         <a href="#process">Our Process</a>
         <a href="#callback">Request Call Back</a>
@@ -565,6 +565,12 @@
     </div>
   </div>
 </footer>
+
+<a href="https://wa.me/919779588595?text=Hi%2C%20I%27m%20interested%20in%20study%20visa%20consultation%20with%20Western%20World%20Education%20Consultants." target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#fff" d="M16.02 3C9.4 3 4 8.36 4 15c0 2.34.66 4.53 1.8 6.4L4 29l7.8-1.75A11.9 11.9 0 0 0 16.02 27C22.64 27 28 21.64 28 15S22.64 3 16.02 3zm6.9 16.98c-.3.83-1.7 1.58-2.35 1.66-.6.08-1.36.11-2.2-.14-.5-.15-1.15-.37-1.98-.72-3.48-1.5-5.75-5-5.92-5.24-.17-.24-1.42-1.9-1.42-3.62 0-1.72.9-2.56 1.22-2.92.32-.35.7-.44.93-.44.23 0 .47.002.67.012.22.01.5-.08.78.6.3.7.99 2.4 1.08 2.57.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.37-.16.73.21.37.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.93 1.8.37.18.58.15.8-.09.22-.24.93-1.08 1.18-1.45.25-.37.5-.31.83-.19.34.12 2.13 1 2.5 1.19.37.18.62.28.71.43.09.16.09.9-.21 1.74z"/>
+  </svg>
+</a>
 
 <script>
   // Hero image slideshow — autoplay + manual dots + swipe
