@@ -314,7 +314,7 @@
       </div>
     </div>
     <nav class="nav-links">
-      <a href="#about">About</a>
+      <a href="#about">About Khushi</a>
       <a href="#destinations">Destinations</a>
       <a href="#process">Process</a>
       <a href="#callback">Contact</a>
@@ -327,7 +327,7 @@
     </button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about">About</a>
+    <a href="#about">About Khushi</a>
     <a href="#destinations">Destinations</a>
     <a href="#process">Process</a>
     <a href="#callback">Contact</a>
@@ -390,7 +390,7 @@
       </div>
     </div>
     <div class="about-copy">
-      <span class="eyebrow">About</span>
+      <span class="eyebrow">About Khushi</span>
       <h2>Personal visa expertise, delivered across three cities.</h2>
       <p>Western World Education Consultants was built around one idea: every student deserves clear, honest guidance on their visa journey — not a sales pitch. Led by Khushi, our counselling is hands-on and personal, covering everything from shortlisting the right country and course to preparing a strong visa file and getting interview-ready.</p>
       <p>With a growing presence in Chandigarh, Gurugram and Ahmedabad, Khushi and the Western World team work closely with students at every step, so nothing about the process feels confusing or out of reach.</p>
@@ -487,7 +487,7 @@
           <a href="#"><span class="ic">✉️</span> Add your email address here</a>
         </div>
       </div>
-      <form class="cb-form" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Thank You — We\'ll Call You Soon';">
+      <form class="cb-form" id="callbackForm">
         <div class="field">
           <label for="name">Full Name</label>
           <input id="name" type="text" placeholder="Enter your name" required>
@@ -540,7 +540,7 @@
       </div>
       <div class="foot-col">
         <h5>Explore</h5>
-        <a href="#about">About</a>
+        <a href="#about">About Khushi</a>
         <a href="#destinations">Destinations</a>
         <a href="#process">Our Process</a>
         <a href="#callback">Request Call Back</a>
@@ -608,6 +608,29 @@
 
     startAutoplay();
   })();
+
+  // Request Call Back form → sends details to WhatsApp
+  const callbackForm = document.getElementById('callbackForm');
+  callbackForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const city = document.getElementById('city').value;
+    const dest = document.getElementById('dest').value;
+
+    const message =
+      `Hi, I'd like to request a call back from Western World Education Consultants.\n\n` +
+      `Name: ${name}\n` +
+      `Phone: ${phone}\n` +
+      `City: ${city}\n` +
+      `Preferred Destination: ${dest}`;
+
+    window.open(`https://wa.me/919779588595?text=${encodeURIComponent(message)}`, '_blank');
+
+    const btn = callbackForm.querySelector('.btn');
+    btn.textContent = 'Opening WhatsApp…';
+    setTimeout(()=>{ btn.textContent = 'Request Call Back'; }, 2500);
+  });
 
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
