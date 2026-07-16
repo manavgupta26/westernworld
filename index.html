@@ -77,7 +77,37 @@
   .nav-links a:hover::after{width:100%;}
   .nav-cta{display:flex;align-items:center;gap:18px;}
   .nav-phone{font-size:14px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:7px;}
-  @media (max-width:860px){.nav-links{display:none;} .nav-phone span{display:none;}}
+
+  .hamburger{
+    display:none;flex-direction:column;justify-content:center;gap:5px;
+    width:38px;height:38px;border:1px solid var(--line);background:transparent;
+    cursor:pointer;padding:0;align-items:center;
+  }
+  .hamburger span{width:18px;height:1.5px;background:var(--navy);transition:transform .25s ease,opacity .25s ease;}
+  .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+  .mobile-menu{
+    display:none;flex-direction:column;
+    max-height:0;overflow:hidden;
+    background:var(--paper);border-bottom:1px solid var(--line);
+    transition:max-height .3s ease;
+  }
+  .mobile-menu.open{max-height:340px;}
+  .mobile-menu a{
+    padding:16px 32px;font-size:15px;font-weight:500;color:var(--navy);
+    border-top:1px solid var(--line);
+  }
+  .mobile-menu .btn{margin:14px 32px 22px;}
+
+  @media (max-width:860px){
+    .nav-links{display:none;}
+    .nav-phone span{display:none;}
+    .nav-cta .btn{display:none;}
+    .hamburger{display:flex;}
+    .mobile-menu{display:flex;}
+  }
 
   /* ===== HERO ===== */
   .hero{
@@ -252,6 +282,16 @@
     <div class="nav-cta">
       <a href="#callback" class="btn btn-navy" style="padding:11px 22px;font-size:13.5px;">Request Call Back</a>
     </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About Khushi</a>
+    <a href="#destinations">Destinations</a>
+    <a href="#process">Process</a>
+    <a href="#callback">Contact</a>
+    <a href="#callback" class="btn btn-primary">Request Call Back</a>
   </div>
 </header>
 
@@ -289,13 +329,13 @@
 
         <circle cx="70" cy="300" r="4" fill="#E4C589"/>
         <circle class="pin-pulse" cx="70" cy="300" r="9" fill="none" stroke="#E4C589" stroke-width="1.4"/>
-        <text x="80" y="304" fill="rgba(248,245,238,0.7)" font-size="11" font-family="Work Sans">India</text>
+        <text x="80" y="304" fill="rgba(248,245,238,0.7)" font-size="11" font-family="Work Sans">Chandigarh</text>
 
         <circle cx="185" cy="255" r="3" fill="rgba(248,245,238,0.5)"/>
         <circle cx="330" cy="150" r="3" fill="rgba(248,245,238,0.5)"/>
 
         <circle cx="430" cy="90" r="4" fill="#2E6E71" stroke="#E4C589" stroke-width="1"/>
-        <text x="385" y="72" fill="rgba(248,245,238,0.8)" font-size="11" font-family="Work Sans">Your Dream Campus</text>
+        <text x="392" y="72" fill="rgba(248,245,238,0.8)" font-size="11" font-family="Work Sans">Your Dream Campus</text>
       </svg>
     </div>
   </div>
@@ -494,6 +534,21 @@
 </footer>
 
 <script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', ()=>{
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded','false');
+    });
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
