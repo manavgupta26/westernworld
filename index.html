@@ -112,55 +112,83 @@
   /* ===== HERO ===== */
   .hero{
     position:relative;
-    background:linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 62%, #17284a 100%);
-    color:var(--paper);
+    min-height:640px;
+    display:flex;align-items:center;
+    background:var(--navy);
+    padding:140px 0 90px;
     overflow:hidden;
-    padding:96px 0 0;
+    touch-action:pan-y;
   }
-  .hero .wrap{display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;position:relative;z-index:2;}
+  .hero-slides{position:absolute;inset:0;z-index:0;}
+  .hero-slide{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    opacity:0;transition:opacity 1s ease;
+  }
+  .hero-slide.active{opacity:1;}
+  .hero-slide[data-src="1"]{background-image:url('image1.jpg');}
+  .hero-slide[data-src="2"]{background-image:url('image2.jpg');}
+  .hero-slide[data-src="3"]{background-image:url('image3.jpg');}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(100deg, rgba(11,21,38,0.55) 0%, rgba(11,21,38,0.15) 46%, rgba(11,21,38,0.05) 70%);
+  }
+  .hero .wrap{position:relative;z-index:2;}
+  .hero-card{
+    background:var(--paper);
+    max-width:560px;
+    padding:46px 42px;
+    box-shadow:0 30px 60px rgba(11,21,38,0.28);
+    border-top:3px solid var(--gold);
+  }
   .hero h1{
-    color:var(--paper);
-    font-size:clamp(2.4rem,4.6vw,3.85rem);
-    line-height:1.04;
-    margin:22px 0 22px;
+    font-size:clamp(2rem,3.6vw,2.9rem);
+    line-height:1.1;
+    margin:16px 0 20px;
   }
-  .hero h1 em{font-style:italic;color:var(--gold-soft);}
-  .hero p.lead{font-size:17.5px;color:rgba(248,245,238,0.75);max-width:480px;margin-bottom:34px;font-weight:300;}
-  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:46px;}
-  .hero-stats{display:flex;gap:38px;padding-top:30px;border-top:1px solid rgba(248,245,238,0.14);max-width:520px;}
-  .hero-stats div b{display:block;font-family:'Fraunces',serif;font-size:24px;color:var(--gold-soft);font-weight:600;}
-  .hero-stats div span{font-size:12px;color:rgba(248,245,238,0.6);letter-spacing:0.04em;}
+  .hero h1 em{font-style:italic;color:var(--teal);}
+  .hero p.lead{font-size:16px;color:var(--muted);max-width:480px;margin-bottom:30px;font-weight:400;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
 
-  .hero-art{position:relative;height:460px;}
-  .hero-art svg{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-dots{
+    position:absolute;left:50%;bottom:20px;transform:translateX(-50%);
+    z-index:3;display:flex;gap:9px;
+  }
+  .hero-dot{
+    width:7px;height:7px;border-radius:50%;padding:0;border:none;
+    background:rgba(248,245,238,0.4);cursor:pointer;
+    transition:background .3s ease,transform .3s ease;
+  }
+  .hero-dot.active{background:var(--gold-soft);transform:scale(1.4);}
 
   @media (max-width:760px){
-    .hero{padding:88px 0 0;}
-    .hero .wrap{grid-template-columns:1fr;gap:8px;}
-    .hero-art{display:none;}
-    .hero p.lead{max-width:100%;}
-    .hero-ctas{margin-bottom:38px;}
-    .hero-ctas .btn{width:100%;}
-    .hero-stats{
-      flex-direction:column;gap:16px;max-width:100%;
-    }
-    .hero-stats div{
-      display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
-    }
-    .hero-stats div b{font-size:19px;white-space:nowrap;}
-    .hero-stats div span{font-size:12.5px;}
+    .hero{min-height:0;height:82vh;padding:96px 0 44px;}
+    .hero-card{max-width:100%;padding:26px 22px 24px;}
+    .hero-card .eyebrow{font-size:11px;}
+    .hero h1{font-size:1.65rem;line-height:1.14;margin:12px 0 14px;}
+    .hero p.lead{font-size:14px;line-height:1.55;margin-bottom:22px;max-width:100%;}
+    .hero-ctas{gap:10px;}
+    .hero-ctas .btn{width:100%;padding:13px 20px;font-size:13.5px;}
+    .hero-dots{bottom:14px;}
   }
-  .globe-dash{stroke-dasharray:6 8;animation:dashmove 26s linear infinite;}
-  @keyframes dashmove{to{stroke-dashoffset:-600;}}
-  .plane-fly{animation:planeMove 9s ease-in-out infinite;}
-  @keyframes planeMove{
-    0%,100%{transform:translate(0,0) rotate(0deg);}
-    50%{transform:translate(10px,-14px) rotate(3deg);}
-  }
-  .pin-pulse{animation:pulse 2.4s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:0.35;r:9;}50%{opacity:0.9;r:4;}}
 
-  .wave-divider{display:block;width:100%;height:64px;margin-top:64px;}
+  /* ===== STATS BAR ===== */
+  .stats-bar{background:var(--navy);padding:38px 0;}
+  .stats-bar .wrap{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;
+  }
+  .stats-bar .stat{
+    display:flex;align-items:baseline;gap:12px;flex:1;min-width:200px;
+  }
+  .stats-bar .stat + .stat{border-left:1px solid rgba(248,245,238,0.14);padding-left:24px;}
+  .stats-bar .stat b{
+    font-family:'Fraunces',serif;font-size:23px;color:var(--gold-soft);font-weight:600;white-space:nowrap;
+  }
+  .stats-bar .stat span{font-size:12.5px;color:rgba(248,245,238,0.65);letter-spacing:0.03em;}
+  @media (max-width:760px){
+    .stats-bar .stat{min-width:100%;}
+    .stats-bar .stat + .stat{border-left:none;padding-left:0;border-top:1px solid rgba(248,245,238,0.14);padding-top:18px;}
+  }
 
   /* ===== ABOUT ===== */
   .about{padding:100px 0 90px;background:var(--paper);}
@@ -312,49 +340,35 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="heroSlider">
+  <div class="hero-slides">
+    <div class="hero-slide active" data-src="1"></div>
+    <div class="hero-slide" data-src="2"></div>
+    <div class="hero-slide" data-src="3"></div>
+  </div>
   <div class="wrap">
-    <div>
-      <span class="eyebrow" style="color:var(--gold-soft);">Chandigarh · Gurugram · Ahmedabad</span>
+    <div class="hero-card">
+      <span class="eyebrow">Chandigarh · Gurugram · Ahmedabad</span>
       <h1>Guiding Your Dreams.<br><em>Building</em> Your Future.</h1>
       <p class="lead">Trusted visa &amp; overseas education counselling from Western World Education Consultants — helping students across Chandigarh, Gurugram and Ahmedabad turn a study-abroad dream into an offer letter.</p>
       <div class="hero-ctas">
         <a href="#callback" class="btn btn-primary">Request a Call Back</a>
-        <a href="#destinations" class="btn btn-outline">Explore Destinations</a>
-      </div>
-      <div class="hero-stats">
-        <div><b>3 Cities</b><span>Chandigarh · Gurugram · Ahmedabad</span></div>
-        <div><b>1:1</b><span>Personal Visa Counselling</span></div>
-        <div><b>End-to-End</b><span>Application to Departure</span></div>
+        <a href="#destinations" class="btn btn-navy">Explore Destinations</a>
       </div>
     </div>
-    <div class="hero-art">
-      <svg viewBox="0 0 480 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="240" cy="230" r="150" stroke="rgba(248,245,238,0.14)" stroke-width="1"/>
-        <ellipse cx="240" cy="230" rx="150" ry="60" stroke="rgba(248,245,238,0.14)" stroke-width="1"/>
-        <ellipse cx="240" cy="230" rx="150" ry="150" stroke="rgba(248,245,238,0.1)" stroke-width="1"/>
-        <line x1="90" y1="230" x2="390" y2="230" stroke="rgba(248,245,238,0.14)" stroke-width="1"/>
-        <line x1="240" y1="80" x2="240" y2="380" stroke="rgba(248,245,238,0.14)" stroke-width="1"/>
+  </div>
+  <div class="hero-dots">
+    <button class="hero-dot active" data-index="0" aria-label="Show slide 1"></button>
+    <button class="hero-dot" data-index="1" aria-label="Show slide 2"></button>
+    <button class="hero-dot" data-index="2" aria-label="Show slide 3"></button>
+  </div>
+</section>
 
-        <path class="globe-dash" d="M70 300 C 160 200, 300 160, 430 90" stroke="#C9973E" stroke-width="1.6" stroke-linecap="round"/>
-
-        <g class="plane-fly">
-          <g transform="translate(400,95) rotate(35)">
-            <path d="M0 0 L18 4 L4 10 L0 26 L-5 10 L-18 4 Z" fill="#E4C589"/>
-          </g>
-        </g>
-
-        <circle cx="70" cy="300" r="4" fill="#E4C589"/>
-        <circle class="pin-pulse" cx="70" cy="300" r="9" fill="none" stroke="#E4C589" stroke-width="1.4"/>
-        <text x="80" y="304" fill="rgba(248,245,238,0.7)" font-size="11" font-family="Work Sans">Chandigarh</text>
-
-        <circle cx="185" cy="255" r="3" fill="rgba(248,245,238,0.5)"/>
-        <circle cx="330" cy="150" r="3" fill="rgba(248,245,238,0.5)"/>
-
-        <circle cx="430" cy="90" r="4" fill="#2E6E71" stroke="#E4C589" stroke-width="1"/>
-        <text x="392" y="72" fill="rgba(248,245,238,0.8)" font-size="11" font-family="Work Sans">Your Dream Campus</text>
-      </svg>
-    </div>
+<section class="stats-bar">
+  <div class="wrap">
+    <div class="stat"><b>3 Cities</b><span>Chandigarh · Gurugram · Ahmedabad</span></div>
+    <div class="stat"><b>1:1</b><span>Personal Visa Counselling</span></div>
+    <div class="stat"><b>End-to-End</b><span>Application to Departure</span></div>
   </div>
 </section>
 
@@ -551,6 +565,42 @@
 </footer>
 
 <script>
+  // Hero image slideshow — autoplay + manual dots + swipe
+  (function(){
+    const heroEl = document.getElementById('heroSlider');
+    const slides = heroEl.querySelectorAll('.hero-slide');
+    const dots = heroEl.querySelectorAll('.hero-dot');
+    let current = 0;
+    let timer;
+
+    function showSlide(i){
+      current = (i + slides.length) % slides.length;
+      slides.forEach(s=>s.classList.remove('active'));
+      dots.forEach(d=>d.classList.remove('active'));
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+    function nextSlide(){ showSlide(current + 1); }
+    function startAutoplay(){ timer = setInterval(nextSlide, 1800); }
+    function resetAutoplay(){ clearInterval(timer); startAutoplay(); }
+
+    dots.forEach((dot,i)=>{
+      dot.addEventListener('click', ()=>{ showSlide(i); resetAutoplay(); });
+    });
+
+    let touchStartX = 0;
+    heroEl.addEventListener('touchstart', e=>{ touchStartX = e.touches[0].clientX; }, {passive:true});
+    heroEl.addEventListener('touchend', e=>{
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if(Math.abs(diff) > 40){
+        diff > 0 ? showSlide(current + 1) : showSlide(current - 1);
+        resetAutoplay();
+      }
+    }, {passive:true});
+
+    startAutoplay();
+  })();
+
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   hamburger.addEventListener('click', ()=>{
